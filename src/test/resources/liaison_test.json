@@ -1,0 +1,500 @@
+{
+  "la": {
+    "nube": [
+      [
+        "LA"
+      ],
+      [
+        "NU",
+        "be"
+      ]
+    ],
+    "españa": [
+      [
+        "LAS"
+      ],
+      [
+        "PA",
+        "ña"
+      ]
+    ]
+  },
+  "feria": {
+    "andaluza": [
+      [
+        "FE",
+        "rian"
+      ],
+      [
+        "da",
+        "LU",
+        "za"
+      ]
+    ],
+    "anual": [
+      [
+        "FE",
+        "ria"
+      ],
+      [
+        "NUAL"
+      ]
+    ],
+    "española": [
+      [
+        "FE",
+        "rias"
+      ],
+      [
+        "pa",
+        "ÑO",
+        "la"
+      ]
+    ],
+    "impresionante": [
+      [
+        "FE",
+        "ri",
+        "im"
+      ],
+      [
+        "pre",
+        "sio",
+        "NAN",
+        "te"
+      ]
+    ]
+  },
+  "ha": {
+    "estado": [
+      [
+        "HAS"
+      ],
+      [
+        "TA",
+        "do"
+      ]
+    ]
+  },
+  "qué": {
+    "españa": [
+      [
+        "KES"
+      ],
+      [
+        "PA",
+        "ña"
+      ]
+    ],
+    "hombre": [
+      [
+        "KOM"
+      ],
+      [
+        "bre"
+      ]
+    ],
+    "hambre": [
+      [
+        "KAM"
+      ],
+      [
+        "bre"
+      ]
+    ],
+    "asco": [
+      [
+        "KAS"
+      ],
+      [
+        "co"
+      ]
+    ],
+    "órgano": [
+      [
+        "KÓR"
+      ],
+      [
+        "ga",
+        "no"
+      ]
+    ],
+    "exitazo": [
+      [
+        "KE"
+      ],
+      [
+        "xi",
+        "TA",
+        "zo"
+      ]
+    ],
+    "asqueroso": [
+      [
+        "KAS"
+      ],
+      [
+        "que",
+        "RO",
+        "so"
+      ]
+    ],
+    "horrible": [
+      [
+        "KO"
+      ],
+      [
+        "RRI",
+        "ble"
+      ]
+    ],
+    "especialito": [
+      [
+        "KES"
+      ],
+      [
+        "pe",
+        "cia",
+        "LI",
+        "to"
+      ]
+    ]
+  },
+  "que": {
+    "hermano": [
+      [
+        "KER"
+      ],
+      [
+        "MA",
+        "no"
+      ]
+    ],
+    "entre": [
+      [
+        "KEN"
+      ],
+      [
+        "tre"
+      ]
+    ],
+    "no": [
+      [
+        "QUE"
+      ],
+      [
+        "NO"
+      ]
+    ],
+    "es": [
+      [
+        "KES"
+      ],
+      []
+    ],
+    "eso": [
+      [
+        "KE"
+      ],
+      [
+        "so"
+      ]
+    ],
+    "ese": [
+      [
+        "KE"
+      ],
+      [
+        "se"
+      ]
+    ]
+  },
+  "toma": {
+    "este": [
+      [
+        "TO",
+        "mas"
+      ],
+      [
+        "te"
+      ]
+    ]
+  },
+  "jeque": {
+    "andaluz": [
+      [
+        "JE",
+        "kan"
+      ],
+      [
+        "da",
+        "LUZ"
+      ]
+    ],
+    "áspero": [
+      [
+        "JE",
+        "KÁS"
+      ],
+      [
+        "pe",
+        "ro"
+      ]
+    ],
+    "anormal": [
+      [
+        "JE",
+        "ka"
+      ],
+      [
+        "nor",
+        "MAL"
+      ]
+    ],
+    "español": [
+      [
+        "JE",
+        "kes"
+      ],
+      [
+        "pa",
+        "ÑOL"
+      ]
+    ],
+    "hermoso": [
+      [
+        "JE",
+        "ker"
+      ],
+      [
+        "MO",
+        "so"
+      ]
+    ],
+    "endemoniado": [
+      [
+        "JE",
+        "ken"
+      ],
+      [
+        "de",
+        "mo",
+        "NIA",
+        "do"
+      ]
+    ],
+    "emo": [
+      [
+        "JE",
+        "ke"
+      ],
+      [
+        "mo"
+      ]
+    ],
+    "échale": [
+      [
+        "JE",
+        "KÉ"
+      ],
+      [
+        "cha",
+        "le"
+      ]
+    ],
+    "imbécil": [
+      [
+        "JE",
+        "kim"
+      ],
+      [
+        "BÉ",
+        "cil"
+      ]
+    ],
+    "íntegro": [
+      [
+        "JE",
+        "KÍN"
+      ],
+      [
+        "te",
+        "gro"
+      ]
+    ],
+    "integró": [
+      [
+        "JE",
+        "kin"
+      ],
+      [
+        "te",
+        "GRÓ"
+      ]
+    ],
+    "histérico": [
+      [
+        "JE",
+        "kis"
+      ],
+      [
+        "TÉ",
+        "ri",
+        "co"
+      ]
+    ]
+  },
+  "y": {
+    "aún": [
+      [
+        "YA"
+      ],
+      [
+        "ÚN"
+      ]
+    ],
+    "a": [
+      [
+        "YA"
+      ],
+      [
+      ]
+    ]
+  },
+  "a": {
+    "dónde": [
+      [
+        "AN"
+      ],
+      [
+        "de"
+      ]
+    ],
+    "dormir": [
+      [
+        "A"
+      ],
+      [
+        "dor",
+        "MIR"
+      ]
+    ],
+    "aunque": [
+      [
+        "A"
+      ],
+      [
+        "AUN",
+        "que"
+      ]
+    ],
+    "un": [
+      [
+        "AN"
+      ],
+      []
+    ],
+    "una": [
+      [
+        "A"
+      ],
+      [
+        "na"
+      ]
+    ],
+    "españoles": [
+      [
+        "AS"
+      ],
+      [
+        "pa",
+        "ÑO",
+        "les"
+      ]
+    ]
+  },
+  "o": {
+    "si": [
+      [
+        "O"
+      ],
+      [
+        "SI"
+      ]
+    ],
+    "hombre": [
+      [
+        "O"
+      ],
+      [
+        "HOM",
+        "bre"
+      ]
+    ],
+    "osciladores": [
+      [
+        "O"
+      ],
+      [
+        "os",
+        "ci",
+        "la",
+        "DO",
+        "res"
+      ]
+    ]
+  },
+  "colocar": {
+    "eso": [
+      [
+        "co",
+        "lo",
+        "CAR"
+      ],
+      [
+        "E",
+        "so"
+      ]
+    ]
+  },
+  "vaya": {
+    "donde": [
+      [
+        "VA",
+        "YAN"
+      ],
+      [
+        "de"
+      ]
+    ],
+    "imbécil": [
+      [
+        "VA",
+        "yim"
+      ],
+      [
+        "BÉ",
+        "cil"
+      ]
+    ]
+  },
+  "manu": {
+    "es": [
+      [
+        "MA",
+        "nus"
+      ],
+      []
+    ],
+    "español": [
+      [
+        "MA",
+        "nus"
+      ],
+      [
+        "pa",
+        "ÑOL"
+      ]
+    ]
+  }
+}
