@@ -1,12 +1,14 @@
 package com.nicolasdeory.syllabler.andalucia.rules;
 
+import com.nicolasdeory.syllabler.Syllabler;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface Rule {
 
-    ArrayList<String> apply(ArrayList<String> syllables);
+    List<CharSequence> apply(Syllabler word);
 
-    default String getLastSyllable(ArrayList<String> syllables) {
-        return syllables.get(syllables.size() - 1);
+    default List<CharSequence> apply(CharSequence word) {
+        return apply(Syllabler.process(word));
     }
 }

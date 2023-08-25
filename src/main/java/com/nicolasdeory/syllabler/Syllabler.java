@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Syllabler {
 
@@ -21,8 +22,9 @@ public class Syllabler {
         this.stressedIndex = -1;
         this.letterAccent = -1;
 
-        this.word = word;
-        this.wordLength = word.length();
+        // delete non word characters
+        this.word = Pattern.compile("[^\\p{L}]", Pattern.UNICODE_CHARACTER_CLASS).matcher(word).replaceAll("");
+        this.wordLength = this.word.length();
         this.positions = new ArrayList<Integer>();
     }
 
@@ -66,7 +68,7 @@ public class Syllabler {
     }
 
     public static Syllabler process(Collection<CharSequence> seq) {
-        var seqList = seq.stream().toList();
+        var seqList = seq.stream().collect(Collectors.toList());
         StringBuilder base = new StringBuilder();
         for (var seqs : seqList) {
             base.append(seqs.toString());
@@ -250,7 +252,7 @@ public class Syllabler {
         if (!isHeadAtEndOfWord()) {
             VowelType type = SyllablerUtils.getVowelType(charAt(currentPosition));
             switch (type) {
-                case OPEN_WITH_ACCENT -> {
+                case OPEN_WITH_ACCENT:
                     letterAccent = currentPosition;
                     if (previous != VowelType.OPEN) {
                         stressedFound = true;
@@ -261,16 +263,16 @@ public class Syllabler {
                         return;
                     }
                     moveForward();
-                }
-                case OPEN -> {
+                    break;
+                case OPEN:
                     if (previous == VowelType.OPEN) {    // Two open-vowels don't form syllable
                         if (nucleusHasH)
                             moveBackward();
                         return;
                     }
                     moveForward();
-                }
-                case CLOSED_WITH_ACCENT -> {
+                    break;
+                case CLOSED_WITH_ACCENT:
                     letterAccent = currentPosition;
                     if (previous != VowelType.OPEN) {  // Diphthong
                         stressedFound = true;
@@ -278,8 +280,7 @@ public class Syllabler {
                     } else if (nucleusHasH)
                         moveBackward();
                     return;
-                }
-                case CLOSED -> {
+                case CLOSED:
                     if (!isHeadAtLastLetter()) { // ¿Is there a third vowel?
                         if (!isConsonant(currentPosition + 1)) {
                             if (charAt(currentPosition - 1) == 'h')
@@ -292,7 +293,7 @@ public class Syllabler {
                     if (charAt(currentPosition) != charAt(currentPosition - 1))
                         moveForward();
                     return;  // It is a descendent diphthong
-                }
+
             }
 
         }

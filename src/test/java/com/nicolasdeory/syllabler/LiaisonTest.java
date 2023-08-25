@@ -102,9 +102,9 @@ public class LiaisonTest {
     @Test
     public void testSyllables() throws Exception {
         LiaisonedWords result = subject.getResult();
-        Collection<String> syllables1 = result.getSyllables1AfterStressed().stream().map(x -> x.toString()).toList();
-        Collection<String> syllables2 = result.getSyllables2AfterStressed().stream().map(x -> x.toString()).toList();
-        var exps = expectedSyllables.stream().toList();
+        Collection<String> syllables1 = result.getSyllables1AfterStressed().stream().map(x -> x.toString()).collect(Collectors.toList());
+        Collection<String> syllables2 = result.getSyllables2AfterStressed().stream().map(x -> x.toString()).collect(Collectors.toList());
+        var exps = expectedSyllables.stream().collect(Collectors.toList());
         assertArrayEquals(exps.get(0).toArray(), syllables1.toArray());
         assertArrayEquals(exps.get(1).toArray(), syllables2.toArray());
     }
