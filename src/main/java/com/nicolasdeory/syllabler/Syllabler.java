@@ -23,7 +23,7 @@ public class Syllabler {
         this.letterAccent = -1;
 
         // delete non word characters
-        this.word = Pattern.compile("[^\\p{L}]", Pattern.UNICODE_CHARACTER_CLASS).matcher(word).replaceAll("");
+            this.word = Pattern.compile("[^\\p{L}]").matcher(word).replaceAll("");
         this.wordLength = this.word.length();
         this.positions = new ArrayList<Integer>();
     }
