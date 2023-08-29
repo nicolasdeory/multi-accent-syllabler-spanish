@@ -13,7 +13,7 @@ public class Translator {
         System.out.println("Traduciendo: " + phrase);
         Rule puesPara = new PuesPara();
         Rule removeAdo = new RemoveAdoIdo();
-        words = words.stream().map(puesPara::apply).map(removeAdo::apply).map(x-> String.join("", x)).collect(Collectors.toList());
+        words = words.stream().map(x->puesPara.apply(x)).map(x->removeAdo.apply(x)).map(x-> String.join("", x)).collect(Collectors.toList());
         int i = 0;
         String currentWord = words.get(i);
         String nextWord = null;

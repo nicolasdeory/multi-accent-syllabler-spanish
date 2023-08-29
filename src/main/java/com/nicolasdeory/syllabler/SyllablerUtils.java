@@ -45,13 +45,29 @@ public final class SyllablerUtils {
 
     public static VowelType getVowelType(char c) {
         switch (c) {
-            case 'á', 'à', 'é', 'è', 'ó', 'ò':
+            case 'á':
+            case 'à':
+            case 'é':
+            case 'è':
+            case 'ó':
+            case 'ò':
                 return VowelType.OPEN_WITH_ACCENT;
-            case 'a', 'e', 'o':
+            case 'a':
+            case 'e':
+            case 'o':
                 return VowelType.OPEN;
-            case 'í', 'ì', 'ú', 'ù', 'ü':
+            case 'í':
+            case 'ì':
+            case 'ú':
+            case 'ù':
+            case 'ü':
                 return VowelType.CLOSED_WITH_ACCENT;
-            case 'i', 'I', 'u', 'U', 'y', 'Y':
+            case 'i':
+            case 'I':
+            case 'u':
+            case 'U':
+            case 'y':
+            case 'Y':
                 return VowelType.CLOSED;
         }
         return VowelType.NOT_A_VOWEL;

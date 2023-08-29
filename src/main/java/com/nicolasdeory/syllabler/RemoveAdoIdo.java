@@ -11,13 +11,11 @@ public class RemoveAdoIdo implements Rule {
         if (word.getStressedPosition() != word.getSyllables().size() - 2) {
             return word.getSyllables();
         }
-
         String actualWord = word.getWord().toString();
         String wordExceptThreeCharacters = actualWord.substring(0, actualWord.length() - 3);
         String lastThreeCharacters = actualWord.substring(actualWord.length() - 3);
         // remove accents and lowercase
         String lastThreeCharactersNormalized = SyllablerUtils.normalizeWord(lastThreeCharacters);
-
         // If enfado/enfada, exception, dont process
         if (actualWord.equalsIgnoreCase("enfado") || actualWord.equalsIgnoreCase("enfada")) {
             return word.getSyllables();
