@@ -4,6 +4,7 @@ import com.nicolasdeory.syllabler.andalucia.LiaisonProcessor;
 import com.nicolasdeory.syllabler.andalucia.rules.AspirateGJ;
 import com.nicolasdeory.syllabler.andalucia.rules.DropLetterS;
 import com.nicolasdeory.syllabler.andalucia.rules.PuesPara;
+import com.nicolasdeory.syllabler.andalucia.rules.RemoveAdoIdo;
 import com.nicolasdeory.syllabler.andalucia.rules.Rule;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +18,8 @@ public class Translator {
         List<List<CharSequence>> resultingWords = new ArrayList<>();
         System.out.println("Traduciendo: " + phrase);
         Rule puesPara = new PuesPara();
-        words = words.stream().map(w -> puesPara.apply(w).stream().collect(Collectors.joining())).collect(Collectors.toList());
+        Rule removeAdo = new RemoveAdoIdo();
+        words = words.stream().map(puesPara::apply).map(removeAdo::apply).map(x-> String.join("", x)).collect(Collectors.toList());
         int i = 0;
         String currentWord = words.get(i);
         String nextWord = null;
@@ -43,6 +45,7 @@ public class Translator {
         if (result != null) {
             resultingWords.add(result.getSyllables2AfterStressed());
         }
+
         DropLetterS dropS = new DropLetterS();
         AspirateGJ aspirateGJ = new AspirateGJ();
         StringBuilder finalString = new StringBuilder();

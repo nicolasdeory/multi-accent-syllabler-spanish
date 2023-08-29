@@ -11,4 +11,8 @@ public interface Rule {
     default List<CharSequence> apply(CharSequence word) {
         return apply(Syllabler.process(word));
     }
+
+    default List<CharSequence> apply(List<CharSequence> syllables) {
+        return apply(Syllabler.process(syllables));
+    }
 }
