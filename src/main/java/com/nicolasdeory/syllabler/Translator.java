@@ -22,6 +22,9 @@ public class Translator {
         String currentWord = words.get(i);
         String nextWord = null;
         LiaisonedWords result = null;
+        if (words.size() == 1) {
+            resultingWords.add(Syllabler.process(words.get(0)).getSyllables().stream().map(x->x.toString().toLowerCase()).collect(Collectors.toList()));
+        }
         while (i < words.size() - 1) {
             nextWord = words.get(i + 1);
             Syllabler s1 = Syllabler.process(currentWord);
@@ -40,7 +43,6 @@ public class Translator {
         if (result != null) {
             resultingWords.add(result.getSyllables2AfterStressed());
         }
-
         DropLetterS dropS = new DropLetterS();
         AspirateGJ aspirateGJ = new AspirateGJ();
         StringBuilder finalString = new StringBuilder();
@@ -49,6 +51,7 @@ public class Translator {
             s = aspirateGJ.apply(String.join("", s));
             finalString.append(String.join("", s)).append(" ");
         }
+        System.out.println("Translation is " + finalString);
         return finalString.toString();
     }
 }

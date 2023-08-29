@@ -139,9 +139,8 @@ public class LiaisonProcessor {
         if (!word2HadFirstStress) {
             // if the stress didn't move to the first word
             liaisonedWords.addStressedIndex2(word2.getStressedPosition());
-        } else if (word2.getSyllables().
-
-            size() >= 2) {
+        } else if (word2.getSyllables().size() >= 1) {
+            // dónDEN das
             // jeKÁS pero
             liaisonedWords.addStressedIndex1(word1.getSyllables().size() - 1);
         }
