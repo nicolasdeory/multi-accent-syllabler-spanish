@@ -3,8 +3,6 @@ package com.nicolasdeory.syllabler;
 import static org.junit.Assert.assertArrayEquals;
 
 import com.google.gson.Gson;
-import com.nicolasdeory.syllabler.andalucia.rules.RemoveAdoIdo;
-import com.nicolasdeory.syllabler.andalucia.rules.Rule;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;

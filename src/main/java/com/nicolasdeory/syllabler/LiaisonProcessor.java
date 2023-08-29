@@ -1,8 +1,4 @@
-package com.nicolasdeory.syllabler.andalucia;
-
-import com.nicolasdeory.syllabler.LiaisonedWords;
-import com.nicolasdeory.syllabler.Syllabler;
-import com.nicolasdeory.syllabler.SyllablerUtils;
+package com.nicolasdeory.syllabler;
 
 public class LiaisonProcessor {
 

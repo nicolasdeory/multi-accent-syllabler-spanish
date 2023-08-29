@@ -1,4 +1,4 @@
-package com.nicolasdeory.syllabler.andalucia.rules;
+package com.nicolasdeory.syllabler;
 
 import com.nicolasdeory.syllabler.Syllabler;
 import java.util.ArrayList;

@@ -1,8 +1,5 @@
-package com.nicolasdeory.syllabler.andalucia.rules;
+package com.nicolasdeory.syllabler;
 
-import com.nicolasdeory.syllabler.Syllabler;
-import com.nicolasdeory.syllabler.SyllablerUtils;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RemoveAdoIdo implements Rule {

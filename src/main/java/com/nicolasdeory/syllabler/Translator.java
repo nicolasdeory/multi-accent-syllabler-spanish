@@ -1,11 +1,5 @@
 package com.nicolasdeory.syllabler;
 
-import com.nicolasdeory.syllabler.andalucia.LiaisonProcessor;
-import com.nicolasdeory.syllabler.andalucia.rules.AspirateGJ;
-import com.nicolasdeory.syllabler.andalucia.rules.DropLetterS;
-import com.nicolasdeory.syllabler.andalucia.rules.PuesPara;
-import com.nicolasdeory.syllabler.andalucia.rules.RemoveAdoIdo;
-import com.nicolasdeory.syllabler.andalucia.rules.Rule;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

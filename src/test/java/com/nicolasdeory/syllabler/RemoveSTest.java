@@ -3,8 +3,6 @@ package com.nicolasdeory.syllabler;
 import static org.junit.Assert.assertArrayEquals;
 
 import com.google.gson.Gson;
-import com.nicolasdeory.syllabler.andalucia.rules.DropLetterS;
-import com.nicolasdeory.syllabler.andalucia.rules.Rule;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
@@ -13,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
