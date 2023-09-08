@@ -107,6 +107,9 @@ public final class SyllablerUtils {
             || t2 == VowelType.CLOSED_WITH_ACCENT) {
             return true;
         }
+        if (c1 == 'o' && c2 == 'a') {
+            return false;
+        }
         if (t1 == VowelType.OPEN && t2 == VowelType.OPEN) {
             return true;
         }
