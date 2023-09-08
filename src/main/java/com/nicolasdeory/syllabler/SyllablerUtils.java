@@ -73,6 +73,32 @@ public final class SyllablerUtils {
         return VowelType.NOT_A_VOWEL;
     }
 
+    public static char accentuateVowel(char c) {
+        switch (c) {
+            case 'a':
+                return 'á';
+            case 'A':
+                return 'Á';
+            case 'e':
+                return 'é';
+            case 'E':
+                return 'É';
+            case 'i':
+                return 'í';
+            case 'I':
+                return 'Í';
+            case 'o':
+                return 'ó';
+            case 'O':
+                return 'Ó';
+            case 'u':
+                return 'ú';
+            case 'U':
+                return 'Ú';
+        }
+        return c;
+    }
+
     public static boolean vowelsDoLiaison(char c1, char c2) {
         // It is hiatus if OPEN-OPEN,
         VowelType t1 = getVowelType(c1);
