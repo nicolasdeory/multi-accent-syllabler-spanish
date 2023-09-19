@@ -75,10 +75,6 @@ public class LiaisonTest {
         String word) {
         return (Map.Entry<String, Object> syllableEntry) -> {
             // The third step is to iterate over the expected syllables.
-//            List<Object> a = new ArrayList<>(); // Should be string or array of string
-//            a.add(word);
-//            a.add(syllableEntry.getKey());
-//            a.add(syllableEntry.getValue());
             Stream<List<String>> stream = ((List<String>) syllableEntry.getValue()).stream().map(expectedSyllable -> {
                 List<String> a = new ArrayList<>();
                 a.add(word);

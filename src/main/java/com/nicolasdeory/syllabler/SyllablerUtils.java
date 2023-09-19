@@ -160,6 +160,9 @@ public final class SyllablerUtils {
         return c;
     }
 
+    /**
+     * Normalize a word by removing accents and lowercasing
+     */
     public static String normalizeWord(String word) {
         StringBuilder sb = new StringBuilder();
         for (char c : word.toCharArray()) {

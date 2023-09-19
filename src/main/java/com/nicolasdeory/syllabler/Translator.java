@@ -19,29 +19,22 @@ public class Translator {
         System.out.println("Traduciendo: " + input);
 
         Rule puesPara = new PuesPara();
+        Rule muy = new Muy();
         Rule vamos = new Vamos();
         Rule removeR = new RemoveTrailingR();
         Rule removeAdo = new RemoveAdoIdo();
 
         List<List<CharSequence>> resultingWords = new ArrayList<>();
-        StringBuilder currentSentence = new StringBuilder();
         for (String segment : segments) {
             if ("!¡¿?.,;:".contains(segment)) {
                 resultingWords.add(Arrays.asList(segment));
             } else {
-//                currentSentence = new StringBuilder(segment);
                 if (segment.length() > 0) {
                     processSentence(segment, resultingWords,
-                        puesPara, vamos, removeR, removeAdo);
+                        puesPara, vamos, removeR, removeAdo, muy);
                 }
-//                currentSentence.append(segment).append(" ");
             }
         }
-
-//        if (currentSentence.length() > 0) {
-//            processSentence(currentSentence.toString(), resultingWords,
-//                puesPara, vamos, removeR, removeAdo);
-//        }
 
         DropLetterS dropS = new DropLetterS();
         AspirateGJ aspirateGJ = new AspirateGJ();
@@ -70,20 +63,41 @@ public class Translator {
     }
 
     private void processSentence(String sentence, List<List<CharSequence>> resultingWords,
-        Rule puesPara, Rule vamos, Rule removeR, Rule removeAdo) {
+        Rule puesPara, Rule vamos, Rule removeR, Rule removeAdo, Rule muy) {
         List<String> words = Arrays.stream(sentence.split(" "))
             .filter(x -> x.length() > 0)
+            .map(String::toLowerCase)
             .map(x -> puesPara.apply(x))
+            .map(x -> muy.apply(x))
             .map(x -> vamos.apply(x))
             .map(x -> removeR.apply(x))
             .map(x -> removeAdo.apply(x))
             .map(x -> String.join("", x))
             .collect(Collectors.toList());
 
+        if (words.size() == 0) {
+            return;
+        }
+
         int i = 0;
         String currentWord = words.get(i);
         String nextWord;
         LiaisonedWords result = null;
+        if (words.size() == 1) {
+            Syllabler s1 = Syllabler.process(currentWord);
+            List<CharSequence> syl = s1.getSyllables();
+            List<CharSequence> syllablesAfterStressed = new ArrayList<>();
+            for (int j = 0; j < syl.size(); j++) {
+                CharSequence syllable = syl.get(j);
+                if (s1.getStressedPosition() == j) {
+                    syllablesAfterStressed.add(syllable.toString().toUpperCase());
+                } else {
+                    syllablesAfterStressed.add(syllable);
+                }
+            }
+            resultingWords.add(syllablesAfterStressed);
+            return;
+        }
         while (i < words.size() - 1) {
             nextWord = words.get(i + 1);
             Syllabler s1 = Syllabler.process(currentWord);

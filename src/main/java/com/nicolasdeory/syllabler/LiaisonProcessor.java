@@ -78,14 +78,6 @@ public class LiaisonProcessor {
         // W1 ends with a vowel
 
         boolean vowelsDontDoLiaison = !SyllablerUtils.vowelsDoLiaison(vowel_w1, vowel_w2);
-//        if (vowelsFormDiptongo) {
-//            // Set stresses.
-//            LiaisonedWords liaisonedWords = LiaisonedWords.of(word1.getSyllables(), word2.getSyllables());
-//            liaisonedWords.addStressedIndex1(word1.getStressedPosition());
-//            liaisonedWords.addStressedIndex2(word2.getStressedPosition());
-//            result = liaisonedWords;
-//            return;
-//        }
 
         // save stress of w1
         int w1_oldStressedIndex = word1.getStressedPosition();
@@ -94,13 +86,13 @@ public class LiaisonProcessor {
 
             replace("h", "");
 
-        boolean w1_que = w1_lastSyllable.toString().equals("qué")
-            || w1_lastSyllable.toString().equals("que");
+        boolean w1_que = SyllablerUtils.normalizeWord(w1_lastSyllable.toString()).equals("que");
         if (w2_startsWithVowel && w1_lastChar != 'y') {
             CharSequence newW1LastSyllable;
             if (w1_que || vowelsDontDoLiaison) {
                 // Remove w1 last vowel, keep w2 first vowel, merge
-                newW1LastSyllable = w1_lastSyllable.subSequence(0, w1_lastSyllable.length() - 1).toString()
+                newW1LastSyllable = w1_lastSyllable.toString().replace("qu", "k").replace("QU", "K");
+                newW1LastSyllable = newW1LastSyllable.subSequence(0, newW1LastSyllable.length() - 1)
                     + w2_firstSyllable.toString();
             } else {
                 // Keep w1 last vowel, remove w2 first vowel, merge
@@ -117,10 +109,10 @@ public class LiaisonProcessor {
             w1_lastSyllable = newW1LastSyllable;
         }
 
-        boolean w1_containsQu = w1_lastSyllable.toString().contains("qu");
+        boolean w1_containsQu = SyllablerUtils.normalizeWord(w1_lastSyllable.toString()).contains("qu");
         if (w1_containsQu) {
             // Replace qu with k
-            CharSequence newW1LastSyllable = w1_lastSyllable.toString().replace("qu", "k");
+            CharSequence newW1LastSyllable = w1_lastSyllable.toString().replace("qu", "k").replace("QU", "K");
             word1 = word1.replaceLastSyllable(newW1LastSyllable);
         }
 
@@ -131,11 +123,10 @@ public class LiaisonProcessor {
         // Set stresses.
         LiaisonedWords liaisonedWords = LiaisonedWords.of(word1.getSyllables(), word2.getSyllables());
         liaisonedWords.addStressedIndex1(w1_oldStressedIndex);
-//        liaisonedWords.addStressedIndex1(word1.getStressedPosition());
         if (!word2HadFirstStress) {
             // if the stress didn't move to the first word
             liaisonedWords.addStressedIndex2(word2.getStressedPosition());
-        } else if (word2.getSyllables().size() >= 1) {
+        } else if (!word2.getSyllables().isEmpty()) {
             // dónDEN das
             // jeKÁS pero
             liaisonedWords.addStressedIndex1(word1.getSyllables().size() - 1);
