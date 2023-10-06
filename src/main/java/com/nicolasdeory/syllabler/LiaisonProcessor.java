@@ -1,5 +1,7 @@
 package com.nicolasdeory.syllabler;
 
+import com.nicolasdeory.syllabler.SyllablerUtils.LiaisonResult;
+
 public class LiaisonProcessor {
 
     Syllabler word1;
@@ -77,27 +79,37 @@ public class LiaisonProcessor {
         }
         // W1 ends with a vowel
 
-        boolean vowelsDontDoLiaison = !SyllablerUtils.vowelsDoLiaison(vowel_w1, vowel_w2);
+        LiaisonResult liaisonResult = SyllablerUtils.vowelsDoLiaison(vowel_w1, vowel_w2,
+            word1.isWordAccentedOnLastSyllable(), word2.isWordAccentedOnFirstSyllable(), word2.getSyllables().size());
 
         // save stress of w1
         int w1_oldStressedIndex = word1.getStressedPosition();
         // By this time, remove h if existing
         w2_firstSyllable = w2_firstSyllable.toString().
-
             replace("h", "");
 
         boolean w1_que = SyllablerUtils.normalizeWord(w1_lastSyllable.toString()).equals("que");
         if (w2_startsWithVowel && w1_lastChar != 'y') {
             CharSequence newW1LastSyllable;
-            if (w1_que || vowelsDontDoLiaison) {
+            if (w1_que || liaisonResult.equals(LiaisonResult.REMOVE_LAST_KEEP_FIRST_MERGE)) {
                 // Remove w1 last vowel, keep w2 first vowel, merge
                 newW1LastSyllable = w1_lastSyllable.toString().replace("qu", "k").replace("QU", "K");
                 newW1LastSyllable = newW1LastSyllable.subSequence(0, newW1LastSyllable.length() - 1)
                     + w2_firstSyllable.toString();
-            } else {
+            } else if (liaisonResult.equals(LiaisonResult.KEEP_LAST_REMOVE_FIRST_MERGE)) {
                 // Keep w1 last vowel, remove w2 first vowel, merge
                 CharSequence newW2FirstSyllable = w2_firstSyllable.subSequence(1, w2_firstSyllable.length());
                 newW1LastSyllable = w1_lastSyllable + newW2FirstSyllable.toString();
+            } else if (liaisonResult.equals(LiaisonResult.KEEP_LAST_KEEP_FIRST_MERGE)) {
+                // Keep w1 last vowel, keep w2 first vowel, merge
+                newW1LastSyllable = w1_lastSyllable + w2_firstSyllable.toString();
+                // remove accents
+                newW1LastSyllable = SyllablerUtils.normalizeWord(newW1LastSyllable.toString());
+            } else if (liaisonResult.equals(LiaisonResult.KEEP_LAST_KEEP_FIRST_NO_MERGE)) {
+                // DONT DO ANYTHING
+                newW1LastSyllable = w1_lastSyllable;
+            } else {
+                throw new RuntimeException("Unknown liaison result: " + liaisonResult);
             }
             word1 = word1.replaceLastSyllable(newW1LastSyllable);
             w1_lastSyllable = newW1LastSyllable;
@@ -116,9 +128,12 @@ public class LiaisonProcessor {
             word1 = word1.replaceLastSyllable(newW1LastSyllable);
         }
 
-        // Remove first syllable from w2
+        // Remove first syllable from w2?
         boolean word2HadFirstStress = word2.isWordAccentedOnFirstSyllable();
-        word2 = word2.removeFirstSyllable();
+//        if (!(liaisonResult.equals(LiaisonResult.KEEP_LAST_REMOVE_FIRST) && word2HadFirstStress)) {
+        if (!liaisonResult.equals(LiaisonResult.KEEP_LAST_KEEP_FIRST_NO_MERGE)) {
+            word2 = word2.removeFirstSyllable();
+        }
 
         // Set stresses.
         LiaisonedWords liaisonedWords = LiaisonedWords.of(word1.getSyllables(), word2.getSyllables());
@@ -127,9 +142,14 @@ public class LiaisonProcessor {
             // if the stress didn't move to the first word
             liaisonedWords.addStressedIndex2(word2.getStressedPosition());
         } else if (!word2.getSyllables().isEmpty()) {
-            // dónDEN das
-            // jeKÁS pero
-            liaisonedWords.addStressedIndex1(word1.getSyllables().size() - 1);
+            if (liaisonResult.equals(LiaisonResult.KEEP_LAST_KEEP_FIRST_NO_MERGE)) {
+                // DE OZ
+                liaisonedWords.addStressedIndex2(word2.getStressedPosition());
+            } else {
+                // dónDEN das
+                // jeKÁS pero
+                liaisonedWords.addStressedIndex1(word1.getSyllables().size() - 1);
+            }
         }
 
         result = liaisonedWords;

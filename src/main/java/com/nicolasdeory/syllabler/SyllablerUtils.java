@@ -1,5 +1,10 @@
 package com.nicolasdeory.syllabler;
 
+import static com.nicolasdeory.syllabler.SyllablerUtils.LiaisonResult.KEEP_LAST_KEEP_FIRST_MERGE;
+import static com.nicolasdeory.syllabler.SyllablerUtils.LiaisonResult.KEEP_LAST_KEEP_FIRST_NO_MERGE;
+import static com.nicolasdeory.syllabler.SyllablerUtils.LiaisonResult.KEEP_LAST_REMOVE_FIRST_MERGE;
+import static com.nicolasdeory.syllabler.SyllablerUtils.LiaisonResult.REMOVE_LAST_KEEP_FIRST_MERGE;
+
 public final class SyllablerUtils {
 
     public static boolean isConsonant(char c) {
@@ -99,36 +104,54 @@ public final class SyllablerUtils {
         return c;
     }
 
-    public static boolean vowelsDoLiaison(char c1, char c2) {
+    public enum LiaisonResult {
+        REMOVE_LAST_KEEP_FIRST_MERGE,
+        KEEP_LAST_REMOVE_FIRST_MERGE,
+        // TODO: implement these last two.
+        KEEP_LAST_KEEP_FIRST_MERGE,
+        KEEP_LAST_KEEP_FIRST_NO_MERGE,
+    }
+
+    public static LiaisonResult vowelsDoLiaison(char c1, char c2, boolean accented1, boolean accented2, int syllableCount2) {
         // It is hiatus if OPEN-OPEN,
         VowelType t1 = getVowelType(c1);
         VowelType t2 = getVowelType(c2);
         char n1 = normalizeVowel(c1);
         char n2 = normalizeVowel(c2);
-        if (t1 == VowelType.CLOSED_WITH_ACCENT || t1 == VowelType.OPEN_WITH_ACCENT || t2 == VowelType.OPEN_WITH_ACCENT
-            || t2 == VowelType.CLOSED_WITH_ACCENT) {
-            return true;
+        boolean c1IsAccented = accented1 || t1 == VowelType.OPEN_WITH_ACCENT || t1 == VowelType.CLOSED_WITH_ACCENT;
+        boolean c2IsAccented = accented2 || t2 == VowelType.OPEN_WITH_ACCENT || t2 == VowelType.CLOSED_WITH_ACCENT;
+        if (c1IsAccented && !c2IsAccented) {
+            if (n1 == 'e' && n2 == 'i')
+                return KEEP_LAST_KEEP_FIRST_NO_MERGE;
+            if (n1 == 'e' && n2 == 'o')
+                return REMOVE_LAST_KEEP_FIRST_MERGE;
+            return KEEP_LAST_REMOVE_FIRST_MERGE;
         }
-        if (c1 == 'o' && c2 == 'a') {
-            return false;
+        if (!c1IsAccented && c2IsAccented) {
+            if (n2 == 'e')
+                return KEEP_LAST_REMOVE_FIRST_MERGE;
+            return REMOVE_LAST_KEEP_FIRST_MERGE;
         }
-        if (n1 == 'u' && n2 == 'e') {
-            return true;
+        if (c1IsAccented && c2IsAccented) {
+            // KEEP BOTH. Merge or no merge?
+            if (n1 == 'e' && n2 == 'o' && syllableCount2 == 1)
+                return KEEP_LAST_KEEP_FIRST_NO_MERGE;
+            return KEEP_LAST_KEEP_FIRST_MERGE;
         }
+        // !c1IsAccented && !c2IsAccented
         if (t1 == VowelType.OPEN && t2 == VowelType.OPEN) {
-            return true;
+            return KEEP_LAST_REMOVE_FIRST_MERGE;
         }
-        if (c1 == 'e' && t2 == VowelType.CLOSED) {
-            return true;
+        if (t1 == VowelType.CLOSED && t2 == VowelType.CLOSED) {
+            return KEEP_LAST_KEEP_FIRST_MERGE;
         }
         if (t1 == VowelType.CLOSED && t2 == VowelType.OPEN) {
-            return true;
+            return KEEP_LAST_REMOVE_FIRST_MERGE;
         }
-        if (t1 == VowelType.OPEN && c2 == 'u') {
-            return true;
+        if (t1 == VowelType.OPEN && t2 == VowelType.CLOSED) {
+            return REMOVE_LAST_KEEP_FIRST_MERGE;
         }
-
-        return false;
+        return REMOVE_LAST_KEEP_FIRST_MERGE;
     }
 
     public static boolean areVowelsEqual(char c1, char c2) {

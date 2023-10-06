@@ -1,6 +1,7 @@
 package com.nicolasdeory.syllabler;
 
 import static com.nicolasdeory.syllabler.SyllablerUtils.accentuateVowel;
+import static com.nicolasdeory.syllabler.SyllablerUtils.normalizeWord;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +12,20 @@ public class RemoveTrailingRLZD implements Rule {
         char cLower = Character.toLowerCase(c);
         return (cLower == 'r' || cLower == 'l' || cLower == 'z' || cLower == 'd');
     }
+    private boolean isEl(Syllabler word) {
+        if (word.getSyllables().size() == 1 && normalizeWord(word.getSyllables().get(0).toString()).equalsIgnoreCase("el")) {
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public List<CharSequence> apply(Syllabler word) {
 
         List<CharSequence> syllables = new ArrayList<>();
+        if (isEl(word)) {
+            return word.getSyllables();
+        }
         for (int k = 0; k < word.getSyllables().size(); k++) {
             if (k != word.getSyllables().size() - 1) {
                 syllables.add(word.getSyllables().get(k));

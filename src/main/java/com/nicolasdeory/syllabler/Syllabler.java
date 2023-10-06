@@ -126,7 +126,7 @@ public class Syllabler {
         }
 
         // Polysyllables
-        if (isWordAccentedOnLastSyllable())
+        if (isWordLLANA())
             stressedIndex = getNumberOfSyllables() - 2;  // Stressed penultimate syllable
         else
             stressedIndex = getNumberOfSyllables() - 1;      // Stressed last syllable
@@ -141,12 +141,27 @@ public class Syllabler {
         }
     }
 
-    public boolean isWordAccentedOnLastSyllable() {
+    // accented on penultimate syllable
+    public boolean isWordLLANA() {
         char endLetter = charAt(wordLength - 1);
-        return (!isConsonant(wordLength - 1) || (endLetter == 'y')) || (((endLetter == 'n')
-            || (endLetter == 's') && !isConsonant(wordLength - 2)));
+
+        // If the last letter is a vowel or 'y', it's LLANA
+        if (!isConsonant(wordLength - 1) || endLetter == 'y') {
+            return true;
+        }
+
+        // If the last letter is 'n' or 's' and the second last letter is a vowel, it's LLANA
+        if ((endLetter == 'n' || endLetter == 's') && !isConsonant(wordLength - 2)) {
+            return true;
+        }
+
+        // Otherwise, it's not LLANA
+        return false;
     }
 
+    public boolean isWordAccentedOnLastSyllable() {
+        return stressedIndex == getNumberOfSyllables() - 1;
+    }
     public boolean isWordAccentedOnFirstSyllable() {
         return stressedIndex == 0;
     }
@@ -384,8 +399,8 @@ public class Syllabler {
     }
 
     private boolean isAConsonantRGroup(char c1, char c2) {
-        // groups: gr - cr, kr - dr - tr - br - vr - pr - fr
-        return Pattern.compile("gr|cr|kr|br|vr|pr|fr|tr").matcher(c1 + String.valueOf(c2)).matches();
+        // groups: gr - cr, kr - dr - br - vr - pr - fr - tr
+        return Pattern.compile("gr|cr|kr|dr|br|vr|pr|fr|tr").matcher(c1 + String.valueOf(c2)).matches();
     }
 
     private void checkThreeConsonantCoda() {
