@@ -18,12 +18,12 @@ import org.junit.runners.Parameterized;
 @RunWith(Parameterized.class)
 public class RemoveTrailingRTest {
 
-    private static final String YAML_RESOURCE = "remove_trailing_r.json";
+    private static final String YAML_RESOURCE = "remove_trailing_rlzd.json";
     private static final String[] WORD_EXPECTATIONS = {
         "syllables"
     };
 
-    private Rule rule = new RemoveTrailingR();
+    private Rule rule = new RemoveTrailingRLZD();
 
     @Parameterized.Parameter(value = 0)
     public String word;

@@ -21,7 +21,7 @@ public class Translator {
         Rule puesPara = new PuesPara();
         Rule muy = new Muy();
         Rule vamos = new Vamos();
-        Rule removeR = new RemoveTrailingR();
+        Rule removeR = new RemoveTrailingRLZD();
         Rule removeAdo = new RemoveAdoIdo();
 
         List<List<CharSequence>> resultingWords = new ArrayList<>();

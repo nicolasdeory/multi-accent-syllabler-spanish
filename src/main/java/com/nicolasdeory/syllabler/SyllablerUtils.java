@@ -103,12 +103,17 @@ public final class SyllablerUtils {
         // It is hiatus if OPEN-OPEN,
         VowelType t1 = getVowelType(c1);
         VowelType t2 = getVowelType(c2);
+        char n1 = normalizeVowel(c1);
+        char n2 = normalizeVowel(c2);
         if (t1 == VowelType.CLOSED_WITH_ACCENT || t1 == VowelType.OPEN_WITH_ACCENT || t2 == VowelType.OPEN_WITH_ACCENT
             || t2 == VowelType.CLOSED_WITH_ACCENT) {
             return true;
         }
         if (c1 == 'o' && c2 == 'a') {
             return false;
+        }
+        if (n1 == 'u' && n2 == 'e') {
+            return true;
         }
         if (t1 == VowelType.OPEN && t2 == VowelType.OPEN) {
             return true;

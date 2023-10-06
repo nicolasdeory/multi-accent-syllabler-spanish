@@ -5,10 +5,11 @@ import static com.nicolasdeory.syllabler.SyllablerUtils.accentuateVowel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RemoveTrailingR implements Rule {
+public class RemoveTrailingRLZD implements Rule {
 
-    private boolean isR(char c) {
-        return Character.toLowerCase(c) == 'r';
+    private boolean isRLZD(char c) {
+        char cLower = Character.toLowerCase(c);
+        return (cLower == 'r' || cLower == 'l' || cLower == 'z' || cLower == 'd');
     }
 
     @Override
@@ -25,13 +26,15 @@ public class RemoveTrailingR implements Rule {
             for (int i = 0; i < s.length(); i++) {
                 char c = s.charAt(i);
                 if (i == s.length() - 1) {
-                    if (!isR(c)) {
+                    if (!isRLZD(c) || (i > 0 && SyllablerUtils.isConsonant(s.charAt(i - 1)))) {
                         syll.append(c);
+                    } else if (word.getSyllables().size() == 1) {
+                        syll.append('h');
                     }
                     continue;
                 }
                 char nextC = s.charAt(i + 1);
-                if (isR(nextC) && !SyllablerUtils.isConsonant(c))
+                if (isRLZD(nextC) && !SyllablerUtils.isConsonant(c))
                     c = accentuateVowel(c);
                 syll.append(c);
             }
