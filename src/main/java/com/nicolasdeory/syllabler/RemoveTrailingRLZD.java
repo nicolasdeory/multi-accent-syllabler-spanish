@@ -19,11 +19,18 @@ public class RemoveTrailingRLZD implements Rule {
         return false;
     }
 
+    private boolean isAl(Syllabler word) {
+        if (word.getSyllables().size() == 1 && normalizeWord(word.getSyllables().get(0).toString()).equalsIgnoreCase("al")) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public List<CharSequence> apply(Syllabler word) {
 
         List<CharSequence> syllables = new ArrayList<>();
-        if (isEl(word)) {
+        if (isEl(word) || isAl(word)) {
             return word.getSyllables();
         }
         for (int k = 0; k < word.getSyllables().size(); k++) {

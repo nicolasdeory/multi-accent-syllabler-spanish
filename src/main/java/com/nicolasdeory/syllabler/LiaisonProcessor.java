@@ -80,7 +80,8 @@ public class LiaisonProcessor {
         // W1 ends with a vowel
 
         LiaisonResult liaisonResult = SyllablerUtils.vowelsDoLiaison(vowel_w1, vowel_w2,
-            word1.isWordAccentedOnLastSyllable(), word2.isWordAccentedOnFirstSyllable(), word2.getSyllables().size());
+            word1.isWordAccentedOnLastSyllable(), word2.isWordAccentedOnFirstSyllable(), word1.getSyllables().size(),
+            word2.getSyllables().size());
 
         // save stress of w1
         int w1_oldStressedIndex = word1.getStressedPosition();
@@ -88,13 +89,11 @@ public class LiaisonProcessor {
         w2_firstSyllable = w2_firstSyllable.toString().
             replace("h", "");
 
-        boolean w1_que = SyllablerUtils.normalizeWord(w1_lastSyllable.toString()).equals("que");
         if (w2_startsWithVowel && w1_lastChar != 'y') {
             CharSequence newW1LastSyllable;
-            if (w1_que || liaisonResult.equals(LiaisonResult.REMOVE_LAST_KEEP_FIRST_MERGE)) {
+            if (liaisonResult.equals(LiaisonResult.REMOVE_LAST_KEEP_FIRST_MERGE)) {
                 // Remove w1 last vowel, keep w2 first vowel, merge
-                newW1LastSyllable = w1_lastSyllable.toString().replace("qu", "k").replace("QU", "K");
-                newW1LastSyllable = newW1LastSyllable.subSequence(0, newW1LastSyllable.length() - 1)
+                newW1LastSyllable = w1_lastSyllable.toString().subSequence(0, w1_lastSyllable.toString().length() - 1)
                     + w2_firstSyllable.toString();
             } else if (liaisonResult.equals(LiaisonResult.KEEP_LAST_REMOVE_FIRST_MERGE)) {
                 // Keep w1 last vowel, remove w2 first vowel, merge
@@ -111,6 +110,7 @@ public class LiaisonProcessor {
             } else {
                 throw new RuntimeException("Unknown liaison result: " + liaisonResult);
             }
+            newW1LastSyllable = newW1LastSyllable.toString().replace("qu", "k").replace("QU", "K");
             word1 = word1.replaceLastSyllable(newW1LastSyllable);
             w1_lastSyllable = newW1LastSyllable;
 

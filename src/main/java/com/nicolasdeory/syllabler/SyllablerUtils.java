@@ -112,7 +112,7 @@ public final class SyllablerUtils {
         KEEP_LAST_KEEP_FIRST_NO_MERGE,
     }
 
-    public static LiaisonResult vowelsDoLiaison(char c1, char c2, boolean accented1, boolean accented2, int syllableCount2) {
+    public static LiaisonResult vowelsDoLiaison(char c1, char c2, boolean accented1, boolean accented2, int syllableCount1, int syllableCount2) {
         // It is hiatus if OPEN-OPEN,
         VowelType t1 = getVowelType(c1);
         VowelType t2 = getVowelType(c2);
@@ -125,9 +125,15 @@ public final class SyllablerUtils {
                 return KEEP_LAST_KEEP_FIRST_NO_MERGE;
             if (n1 == 'e' && n2 == 'o')
                 return REMOVE_LAST_KEEP_FIRST_MERGE;
+            if (n1 == 'e' && syllableCount1 == 1) {
+                return REMOVE_LAST_KEEP_FIRST_MERGE;
+            }
             return KEEP_LAST_REMOVE_FIRST_MERGE;
         }
         if (!c1IsAccented && c2IsAccented) {
+            if (n1 == n2) {
+                return KEEP_LAST_KEEP_FIRST_NO_MERGE;
+            }
             if (n2 == 'e')
                 return KEEP_LAST_REMOVE_FIRST_MERGE;
             return REMOVE_LAST_KEEP_FIRST_MERGE;
@@ -136,9 +142,18 @@ public final class SyllablerUtils {
             // KEEP BOTH. Merge or no merge?
             if (n1 == 'e' && n2 == 'o' && syllableCount2 == 1)
                 return KEEP_LAST_KEEP_FIRST_NO_MERGE;
+            if (n2 == 'e') {
+                return KEEP_LAST_REMOVE_FIRST_MERGE;
+            }
+            if (n1 == 'e' && syllableCount1 == 1) {
+                return REMOVE_LAST_KEEP_FIRST_MERGE;
+            }
             return KEEP_LAST_KEEP_FIRST_MERGE;
         }
         // !c1IsAccented && !c2IsAccented
+        if (n1 == 'e' && n2 == 'a') {
+            return REMOVE_LAST_KEEP_FIRST_MERGE;
+        }
         if (t1 == VowelType.OPEN && t2 == VowelType.OPEN) {
             return KEEP_LAST_REMOVE_FIRST_MERGE;
         }
