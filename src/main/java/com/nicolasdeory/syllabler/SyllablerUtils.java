@@ -107,7 +107,6 @@ public final class SyllablerUtils {
     public enum LiaisonResult {
         REMOVE_LAST_KEEP_FIRST_MERGE,
         KEEP_LAST_REMOVE_FIRST_MERGE,
-        // TODO: implement these last two.
         KEEP_LAST_KEEP_FIRST_MERGE,
         KEEP_LAST_KEEP_FIRST_NO_MERGE,
     }
@@ -128,14 +127,20 @@ public final class SyllablerUtils {
             if (n1 == 'e' && syllableCount1 == 1) {
                 return REMOVE_LAST_KEEP_FIRST_MERGE;
             }
+            if (n1 == 'i' && n2 == 'o')
+                return KEEP_LAST_KEEP_FIRST_NO_MERGE;
             return KEEP_LAST_REMOVE_FIRST_MERGE;
         }
         if (!c1IsAccented && c2IsAccented) {
             if (n1 == n2) {
+                if (n1 == 'a')
+                    return KEEP_LAST_REMOVE_FIRST_MERGE;
                 return KEEP_LAST_KEEP_FIRST_NO_MERGE;
             }
             if (n2 == 'e')
                 return KEEP_LAST_REMOVE_FIRST_MERGE;
+            if (n2 == 'i')
+                return KEEP_LAST_KEEP_FIRST_NO_MERGE;
             return REMOVE_LAST_KEEP_FIRST_MERGE;
         }
         if (c1IsAccented && c2IsAccented) {
@@ -147,6 +152,9 @@ public final class SyllablerUtils {
             }
             if (n1 == 'e' && syllableCount1 == 1) {
                 return REMOVE_LAST_KEEP_FIRST_MERGE;
+            }
+            if (syllableCount1 > 1) {
+                return KEEP_LAST_KEEP_FIRST_NO_MERGE;
             }
             return KEEP_LAST_KEEP_FIRST_MERGE;
         }

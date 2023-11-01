@@ -21,7 +21,6 @@ public class Translator {
         Rule puesPara = new PuesPara();
         Rule muy = new Muy();
         Rule vamos = new Vamos();
-        Rule removeR = new RemoveTrailingRLZD();
         Rule removeAdo = new RemoveAdoIdo();
 
         List<List<CharSequence>> resultingWords = new ArrayList<>();
@@ -31,7 +30,7 @@ public class Translator {
             } else {
                 if (segment.length() > 0) {
                     processSentence(segment, resultingWords,
-                        puesPara, vamos, removeR, removeAdo, muy);
+                        puesPara, vamos, removeAdo, muy);
                 }
             }
         }
@@ -62,15 +61,16 @@ public class Translator {
         return finalString.toString();
     }
 
+    LiaisonRule removeRZD = new RemoveTrailingRZD();
+
     private void processSentence(String sentence, List<List<CharSequence>> resultingWords,
-        Rule puesPara, Rule vamos, Rule removeR, Rule removeAdo, Rule muy) {
+        Rule puesPara, Rule vamos, Rule removeAdo, Rule muy) {
         List<String> words = Arrays.stream(sentence.split(" "))
             .filter(x -> x.length() > 0)
             .map(String::toLowerCase)
             .map(x -> puesPara.apply(x))
             .map(x -> muy.apply(x))
             .map(x -> vamos.apply(x))
-            .map(x -> removeR.apply(x))
             .map(x -> removeAdo.apply(x))
             .map(x -> String.join("", x))
             .collect(Collectors.toList());
@@ -102,6 +102,8 @@ public class Translator {
             nextWord = words.get(i + 1);
             Syllabler s1 = Syllabler.process(currentWord);
             Syllabler s2 = Syllabler.process(nextWord);
+            List<CharSequence> liaisonW1Preprocess = removeRZD.apply(s1, s2);
+            s1 = Syllabler.process(liaisonW1Preprocess);
             LiaisonProcessor liaisonProcessor = LiaisonProcessor.process(s1, s2);
             result = liaisonProcessor.getResult();
             if (result.getSyllables2AfterStressed().size() > 0) {

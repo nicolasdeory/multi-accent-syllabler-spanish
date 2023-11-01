@@ -61,10 +61,23 @@
       "o"
     ]
   },
+  "quejidos": {
+    "syllables": [
+      "que",
+      "jí",
+      "os"
+    ]
+  },
   "ido": {
     "syllables": [
       "i",
       "do"
+    ]
+  },
+  "idos": {
+    "syllables": [
+      "i",
+      "dos"
     ]
   },
   "anidó": {
@@ -87,12 +100,33 @@
       "o"
     ]
   },
+  "leídos": {
+    "syllables": [
+      "le",
+      "í",
+      "os"
+    ]
+  },
   "decaída": {
     "syllables": [
       "de",
       "ca",
       "í",
       "a"
+    ]
+  },
+  "vida": {
+    "syllables": [
+      "vi",
+      "da"
+    ]
+  },
+  "recaídas": {
+    "syllables": [
+      "re",
+      "ca",
+      "í",
+      "as"
     ]
   },
   "hartado": {
@@ -141,6 +175,13 @@
       "do"
     ]
   },
+  "enfados": {
+    "syllables": [
+      "en",
+      "fa",
+      "dos"
+    ]
+  },
   "amada": {
     "syllables": [
       "a",
@@ -154,6 +195,13 @@
       "dáh"
     ]
   },
+  "enfadadas": {
+    "syllables": [
+      "en",
+      "fa",
+      "dás"
+    ]
+  },
   "enfadado": {
     "syllables": [
       "en",
@@ -162,12 +210,35 @@
       "o"
     ]
   },
+  "enfadados": {
+    "syllables": [
+      "en",
+      "fa",
+      "da",
+      "os"
+    ]
+  },
   "amañado": {
     "syllables": [
       "a",
       "ma",
       "ña",
       "o"
+    ]
+  },
+  "apañados": {
+    "syllables": [
+      "a",
+      "pa",
+      "ña",
+      "os"
+    ]
+  },
+  "amañadas": {
+    "syllables": [
+      "a",
+      "ma",
+      "ñás"
     ]
   }
 }

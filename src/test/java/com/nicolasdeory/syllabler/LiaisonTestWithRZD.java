@@ -18,9 +18,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 @RunWith(Parameterized.class)
-public class LiaisonTest {
+public class LiaisonTestWithRZD {
 
-    private static final String YAML_RESOURCE = "liaison_test.json";
+    private static final String YAML_RESOURCE = "liaison_test_drop_rzd.json";
 
     private LiaisonProcessor subject;
 
@@ -36,7 +36,7 @@ public class LiaisonTest {
     @Parameterized.Parameters(name = "{0} {1} {2}")
     public static Iterable<Object[]> data() throws Exception {
         Gson gson = new Gson();
-        InputStream resourceAsStream = LiaisonTest.class.getClassLoader().getResourceAsStream(YAML_RESOURCE);
+        InputStream resourceAsStream = LiaisonTestWithRZD.class.getClassLoader().getResourceAsStream(YAML_RESOURCE);
         Map<String, Map<String, Object>> topLevelWords = gson.fromJson(new InputStreamReader(resourceAsStream),
             Map.class);
         // The iterable I want to return is of this form
@@ -87,9 +87,11 @@ public class LiaisonTest {
         };
     }
 
+    private final RemoveTrailingRZD rule = new RemoveTrailingRZD();
     @Before
     public void before() {
-        this.subject = LiaisonProcessor.process(Syllabler.process(word1), Syllabler.process(word2));
+        List<CharSequence> word1Ruled = rule.apply(Syllabler.process(word1), Syllabler.process(word2));
+        this.subject = LiaisonProcessor.process(Syllabler.process(word1Ruled), Syllabler.process(word2));
     }
 
     @Test
