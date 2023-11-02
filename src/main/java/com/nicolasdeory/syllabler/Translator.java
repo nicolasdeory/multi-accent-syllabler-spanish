@@ -118,7 +118,8 @@ public class Translator {
             i++;
         }
         if (result != null) {
-            resultingWords.add(result.getSyllables2AfterStressed());
+            List<CharSequence> syll2AfterStressedAfterRZD = removeRZD.apply(result.getSyllables2AfterStressed(), List.of("xe"));
+            resultingWords.add(syll2AfterStressedAfterRZD);
         }
     }
 }
