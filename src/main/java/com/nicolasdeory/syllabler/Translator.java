@@ -22,6 +22,7 @@ public class Translator {
         Rule muy = new Muy();
         Rule vamos = new Vamos();
         Rule removeAdo = new RemoveAdoIdo();
+        Rule aspirateX = new AspirateX();
 
         List<List<CharSequence>> resultingWords = new ArrayList<>();
         for (String segment : segments) {
@@ -30,7 +31,7 @@ public class Translator {
             } else {
                 if (segment.length() > 0) {
                     processSentence(segment, resultingWords,
-                        puesPara, vamos, removeAdo, muy);
+                        puesPara, vamos, removeAdo, muy, aspirateX);
                 }
             }
         }
@@ -64,7 +65,7 @@ public class Translator {
     LiaisonRule removeRZD = new RemoveTrailingRZD();
 
     private void processSentence(String sentence, List<List<CharSequence>> resultingWords,
-        Rule puesPara, Rule vamos, Rule removeAdo, Rule muy) {
+        Rule puesPara, Rule vamos, Rule removeAdo, Rule muy, Rule aspirateX) {
         List<String> words = Arrays.stream(sentence.split(" "))
             .filter(x -> x.length() > 0)
             .map(String::toLowerCase)
@@ -72,6 +73,7 @@ public class Translator {
             .map(x -> muy.apply(x))
             .map(x -> vamos.apply(x))
             .map(x -> removeAdo.apply(x))
+            .map(x-> aspirateX.apply(x))
             .map(x -> String.join("", x))
             .collect(Collectors.toList());
 

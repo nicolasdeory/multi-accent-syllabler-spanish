@@ -86,8 +86,10 @@ public class LiaisonProcessor {
         // save stress of w1
         int w1_oldStressedIndex = word1.getStressedPosition();
         // By this time, remove h if existing
-        w2_firstSyllable = w2_firstSyllable.toString().
-            replace("h", "");
+        if (w2_firstSyllable.charAt(0) == 'h') {
+            w2_firstSyllable = w2_firstSyllable.toString().
+                replace("h", "");
+        }
 
         if (w2_startsWithVowel && w1_lastChar != 'y') {
             CharSequence newW1LastSyllable;
