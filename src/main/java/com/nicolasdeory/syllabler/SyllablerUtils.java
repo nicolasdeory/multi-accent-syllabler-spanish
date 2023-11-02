@@ -138,7 +138,15 @@ public final class SyllablerUtils {
                 return KEEP_LAST_KEEP_FIRST_NO_MERGE;
             }
             if (n2 == 'e')
-                return KEEP_LAST_REMOVE_FIRST_MERGE;
+            {
+                if ((n1 == 'a') || ((n1 == 'o') && syllableCount2 == 1)) {
+                    return KEEP_LAST_REMOVE_FIRST_MERGE;
+                }
+                if (n1 == 'u') {
+                    return KEEP_LAST_KEEP_FIRST_MERGE;
+                }
+                return KEEP_LAST_KEEP_FIRST_NO_MERGE;
+            }
             if (n2 == 'i')
                 return KEEP_LAST_KEEP_FIRST_NO_MERGE;
             return REMOVE_LAST_KEEP_FIRST_MERGE;
